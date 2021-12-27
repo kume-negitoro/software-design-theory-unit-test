@@ -1,0 +1,81 @@
+# 1. バグの無い正常に動作するソースコードの一部を変更し，いずれか一つ（複数でもよい）のテストケースに対して正常に動作しないようにする．
+渡された引数が二値画像出ない場合に例外を投げる処理をコメントアウトする。
+
+
+# 2. ユニットテストを実行し，テストに失敗することを確認する．
+
+```
+$ yarn test
+yarn run v1.22.15
+$ jest
+ FAIL  src/getDistance4.test.ts
+  getDistance4
+    ✓ return value should be an array containing 0 or positive numbers (6 ms)
+    ✓ getDistance4(testImage<N>) and testImage<N>Distance4 should be same (1 ms)
+    ✓ return value should be an array containing 0 or positive numbers (4 ms)
+    ✓ getDistance4(testImage<N>) and testImage<N>Distance4 should be same
+    ✓ return value should be an array containing 0 or positive numbers (1 ms)
+    ✓ getDistance4(testImage<N>) and testImage<N>Distance4 should be same (1 ms)
+    ✓ return value should be an array containing 0 or positive numbers (4 ms)
+    ✓ getDistance4(testImage<N>) and testImage<N>Distance4 should be same
+  getDistance4 special case
+    ✕ The first argument should be a binary image (1 ms)
+
+  ● getDistance4 special case › The first argument should be a binary image
+
+    expect(received).toThrow(expected)
+
+    Expected substring: "Invalid Argument Error: The first argument should be a binary image"
+
+    Received function did not throw
+
+      120 |     test('The first argument should be a binary image', () => {
+      121 |         const { width, height, data } = specialCase1
+    > 122 |         expect(() => getDistance4(data, width, height)).toThrow(
+          |                                                         ^
+      123 |             'Invalid Argument Error: The first argument should be a binary image'
+      124 |         )
+      125 |     })
+
+      at Object.<anonymous> (src/getDistance4.test.ts:122:57)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 8 passed, 9 total
+Snapshots:   0 total
+Time:        1.332 s, estimated 2 s
+Ran all test suites.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+```
+
+
+# 3. 変更した部分を元に戻し，正常に動作するようなソースコードにする．
+コメントアウトを解除する
+
+
+# 4. ユニットテストを実行し，テストに成功することを確認する．
+
+```
+$ yarn test
+yarn run v1.22.15
+$ jest
+ PASS  src/getDistance4.test.ts
+  getDistance4
+    ✓ return value should be an array containing 0 or positive numbers (5 ms)
+    ✓ getDistance4(testImage<N>) and testImage<N>Distance4 should be same (1 ms)
+    ✓ return value should be an array containing 0 or positive numbers (3 ms)
+    ✓ getDistance4(testImage<N>) and testImage<N>Distance4 should be same (1 ms)
+    ✓ return value should be an array containing 0 or positive numbers (1 ms)
+    ✓ getDistance4(testImage<N>) and testImage<N>Distance4 should be same
+    ✓ return value should be an array containing 0 or positive numbers (3 ms)
+    ✓ getDistance4(testImage<N>) and testImage<N>Distance4 should be same (1 ms)
+  getDistance4 special case
+    ✓ The first argument should be a binary image (13 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       9 passed, 9 total
+Snapshots:   0 total
+Time:        1.138 s, estimated 2 s
+Ran all test suites.
+Done in 3.60s.
+```
